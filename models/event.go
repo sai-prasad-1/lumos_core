@@ -9,5 +9,4 @@ type Event struct {
 	Description string    `json:"description"`
 	Type        string    `json:"type"`
 	Date        time.Time `json:"date"`
-	MediaLink   string    `json:"mediaLink"`
 }

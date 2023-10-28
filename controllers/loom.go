@@ -29,15 +29,10 @@ func CreateLoom(c *fiber.Ctx) error {
 }
 
 func GetLooms(c *fiber.Ctx) error {
-	var params types.FeedLoomFetch
-	if err := c.BodyParser(&params); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"message": err.Error(),
-		})
-	}
+	username := c.Params("username")
 
 	loomRepo := repository.NewLoomRepository(storage.GetDB())
-	feed, err := loomRepo.GetFeedForUser(params.Username)
+	feed, err := loomRepo.GetFeedForUser(username)
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"message": err.Error(),

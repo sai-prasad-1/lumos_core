@@ -49,7 +49,7 @@ func (repo *LoomRepository) AllLoomsByUser(Username string) ([]models.Loom, erro
 func (repo *LoomRepository) GetFeedForUser(Username string) ([]models.Loom, error) {
 	var looms []models.Loom
 	if err := repo.db.Joins("JOIN followings ON looms.user_id = followings.following_id").
-		Where("followings.user_id = (SELECT id FROM users WHERE username = ?)", Username).
+		Where("followings.user_id = (SELECT id FROM users WHERE id = ?)", Username).
 		Order("looms.created_at desc").
 		Find(&looms).Error; err != nil {
 		return looms, err

@@ -12,8 +12,15 @@ func SetupRoutes(app *fiber.App) {
 		})
 	})
 	user := app.Group("/user")
+	event := app.Group("/event")
+	feed := app.Group("/feed")
+
 	user.Get("/:username", controllers.UserProfile)
 	user.Post("/", controllers.Createuser)
-
 	user.Post("/follow", controllers.FollowUser)
+
+	event.Get("/", controllers.Events)
+	event.Post("/", controllers.CreateEvent)
+
+	feed.Get("/:username", controllers.GetLooms)
 }
